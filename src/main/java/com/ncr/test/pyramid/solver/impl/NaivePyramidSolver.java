@@ -12,8 +12,20 @@ public class NaivePyramidSolver implements PyramidSolver {
         return getTotalAbove(pyramid.getRows() - 1, 0, pyramid);
     }
 
+    /*
+    The efficiency problem in this algorithm is that it recalculates
+    multiple nodes without memorizing the already computed values.
+    This makes it ultimately inefficient and unusable for larger pyramids.
+    Also, the problem is that if the pyramid is too deep, it will cause a stack overflow.
+    It is not good practice to use recursion in Java for this reason.
+    There are also missing checks for method parameters.
+    */
     private long getTotalAbove(int row, int column, Pyramid pyramid) {
-        if (row == 0) return 0;
+        /*
+        The problem was with the termination condition.
+        It should include values from the last row too and not return 0.
+         */
+        if (row == 0) return pyramid.get(row, column);
 
         int myValue = pyramid.get(row, column);
         long left  = myValue + getTotalAbove(row - 1, column, pyramid);
